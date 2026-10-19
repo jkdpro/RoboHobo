@@ -1,0 +1,9 @@
+{
+  "name": "robohobo",
+  "version": "0.1.0",
+  "description": "Claude plugin to help browse job advertisements.",
+  "author": {
+    "name": "Kuba"
+  },
+  "keywords": ["jobs", "job-search"]
+}
