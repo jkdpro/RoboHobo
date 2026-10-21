@@ -13,7 +13,7 @@ If it works fine, I will possibly think on further automations.
 - practice Claude Code (in double role - as a tool to create plugin and to use this plugin),
 - exercise using MCP, exercise creating skills and commands,
 - play with various models, learn choosing the right one in terms of cost and effectiveness,
-- apply concepts learned during "AI Coder" course by @ed-donner,
+- apply concepts learned during "AI Coder" course by Ed Donner (https://www.udemy.com/course/ai-coder-from-vibe-coder-to-agentic-engineer/),
 - accumulate doubts and questions before starting other AI-related courses.
 
 ## tech approach
