@@ -1,11 +1,8 @@
----
-name: olx-search
-description: Search job listings in the Praca section of OLX.pl with Playwright MCP and return a concise shortlist with links and visible job details. Use when the user asks to find, review, or compare jobs from OLX.pl.
----
-
 # OLX.pl job search
 
-Use this skill for the OLX.pl browsing workflow. Use the user's stated criteria directly; ask only for information that is necessary to run an otherwise ambiguous search. Do not invent job preferences.
+When the requested source is OLX.pl, read and follow this file before browsing.
+
+Use this workflow for OLX.pl browsing. Use the user's stated criteria directly; ask only for information that is necessary to run an otherwise ambiguous search. Do not invent job preferences.
 
 ## Configuration
 
