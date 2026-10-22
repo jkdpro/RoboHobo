@@ -1,0 +1,23 @@
+version: 1
+
+defaults:
+  max_results: 5
+  sites:
+    - olx
+  location_ref: home
+
+searches:
+  - id: example-backend
+    enabled: true
+    keywords:
+      - python
+      - backend
+    exclude_keywords:
+      - sales
+    category: IT
+    employment_type:
+      - full-time
+    remote_work: false
+    min_salary_pln: 8000
+    max_results: 10
+    notes: "Example only; replace with personal values."

@@ -1,0 +1,10 @@
+version: 1
+
+home:
+  city: "Examplecity"
+  city_slug: "examplecity"
+  region: "Example Voivodeship"
+  country: "PL"
+  postal_code: ""
+
+radius_km: 30
