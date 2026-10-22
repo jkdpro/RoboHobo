@@ -7,6 +7,13 @@ description: Search job listings in the Praca section of OLX.pl with Playwright 
 
 Use this skill for the OLX.pl browsing workflow. Use the user's stated criteria directly; ask only for information that is necessary to run an otherwise ambiguous search. Do not invent job preferences.
 
+## Configuration
+
+- The plugin's `user_dir` is available as `${user_config.user_dir}` and defaults to `~/robohobo`.
+- When the user asks to run a predefined search or relies on saved preferences, read `${user_config.user_dir}/searches.yaml` and `${user_config.user_dir}/location.yaml` first.
+- Apply explicit criteria from the current request instead of saved values when they conflict.
+- If a personal file is missing or unavailable, use the user's stated criteria and ask only for preferences that are necessary. Do not invent values.
+
 ## Search workflow
 
 1. Open `https://www.olx.pl/praca/` with the Playwright MCP browser.

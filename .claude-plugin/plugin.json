@@ -5,5 +5,13 @@
   "author": {
     "name": "Kuba"
   },
-  "keywords": ["jobs", "job-search"]
+  "keywords": ["jobs", "job-search"],
+  "userConfig": {
+    "user_dir": {
+      "type": "directory",
+      "title": "RoboHobo user directory",
+      "description": "Directory containing personal searches.yaml and location.yaml files.",
+      "default": "~/robohobo"
+    }
+  }
 }
