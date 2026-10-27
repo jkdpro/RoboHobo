@@ -26,7 +26,7 @@ Read the instructions file for the requested source before browsing. If the sour
 
 1. Determine the criteria (role, keywords, location, seniority, other filters) from the prompt and, if relevant, the saved configuration
 - we will call prompt and saved configuration together the "search request"
-2. If criteria are unclear, are incoplete or cannot be applied following general or site-specific rules, ask the user for clarification before proceeding.
+2. If criteria are unclear, are incomplete or cannot be applied following general or site-specific rules, ask the user for clarification before proceeding.
 3. Run the search following the source's instructions file
 4. Stop after the requested number of results. If no count is given, use `max_results` from the search or `defaults`, otherwise return up to five relevant ads.
 5. Rank or shortlist the results against the user's preferences and note any red flags.
