@@ -9,9 +9,10 @@ searches:
   - id: example-net
     enabled: true
     category: IT
-      - .NET - mid or senior
-      - prefer roles where API experience is not explicitely listed
-      - disallow roles when python experience is required
+    criteria:
+      - ".NET - mid or senior"
+      - "prefer roles where API experience is not explicitely listed"
+      - "disallow roles when python experience is required"
     employment_type:
       - only full-time
     remote_work: false
@@ -21,9 +22,10 @@ searches:
   - id: example-data
     enabled: true
     category: IT
-      - role described similar to: Database Developer, Data Scientist, Database administrator
-      - prefer roles with experience in Microsoft SQL Server, MySQL, mariaDB, PostgreSQL
-      - disallow roles with strong accent on Oracle PL/SQL
+    criteria:
+      - "role described similar to: Database Developer, Data Scientist, Database administrator"
+      - "prefer roles with experience in Microsoft SQL Server, MySQL, mariaDB, PostgreSQL"
+      - "disallow roles with strong accent on Oracle PL/SQL"
     employment_type:
       - prefer part-time
     remote_work: false
