@@ -1,4 +1,5 @@
-version: 0.1.0
+# TODO: update schema version upon release
+schema_version: 0
 
 home:
   city: "Examplecity"

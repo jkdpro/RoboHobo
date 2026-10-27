@@ -22,12 +22,12 @@ If it works fine, I will possibly think on further automations.
 
 - Claude Code plugin as an obvious choice:
   - because I simply want to practice claude code,
-  - because I want to have all the toys (MCP, skills, commands) bundled toghether and easily deployable;
+  - because I want to have all the toys (MCP, skills, commands) bundled together and easily deployable;
   - possibly above mentioned _further automations_ will push me to abandon plugin approach - let's see.
 
-- I am using OpenRouter instead of Anthropics subscribtion
+- I am using OpenRouter instead of Anthropic's subscription
   - pay-as-you-go seems safer for my pocket at this stage,
-  - I want to experiment with non-Anthropics models
+  - I want to experiment with non-Anthropic models
 
 ## observations
 

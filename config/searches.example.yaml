@@ -1,4 +1,5 @@
-version: 0.1.0
+# TODO: update schema version upon release
+schema_version: 0
 
 defaults:
   max_results: 50
@@ -11,7 +12,7 @@ searches:
     category: IT
     criteria:
       - ".NET - mid or senior"
-      - "prefer roles where API experience is not explicitely listed"
+      - "prefer roles where API experience is not explicitly listed"
       - "disallow roles when python experience is required"
     employment_type:
       - only full-time
@@ -23,8 +24,8 @@ searches:
     enabled: true
     category: IT
     criteria:
-      - "role described similar to: Database Developer, Data Scientist, Database administrator"
-      - "prefer roles with experience in Microsoft SQL Server, MySQL, mariaDB, PostgreSQL"
+      - "role described similar to: Database Developer, Data Scientist, Database Administrator"
+      - "prefer roles with experience in Microsoft SQL Server, MySQL, MariaDB, PostgreSQL"
       - "disallow roles with strong accent on Oracle PL/SQL"
     employment_type:
       - prefer part-time
