@@ -6,27 +6,51 @@ defaults:
 searches:
   - id: example-net
     enabled: true
-    category: IT
     criteria:
-      - ".NET - mid or senior"
-      - "prefer roles where API experience is not explicitly listed"
-      - "disallow roles when python experience is required"
-    employment_type:
-      - only full-time
-    remote_work: false
-    min_salary_pln: 8000
+      job_category:
+        require:
+          - IT
+      role:
+        require:
+          - ".NET developer"
+      seniority:
+        require:
+          - mid
+          - senior
+      employment_type:
+        require:
+          - full_time
+      skills:
+        exclude:
+          - "Python experience is required"
+        prefer:
+          - "roles that do not explicitly list API experience"
+      salary:
+        require:
+          - "minimum PLN 8,000; period and gross/net basis unspecified"
     max_results: 50
     notes: "Example only; replace with personal values."
   - id: example-data
     enabled: true
-    category: IT
     criteria:
-      - "role described similar to: Database Developer, Data Scientist, Database Administrator"
-      - "prefer roles with experience in Microsoft SQL Server, MySQL, MariaDB, PostgreSQL"
-      - "disallow roles with strong accent on Oracle PL/SQL"
-    employment_type:
-      - prefer part-time
-    remote_work: false
-    min_salary_pln: 8000
+      job_category:
+        require:
+          - IT
+      role:
+        require:
+          - "Database Developer or similar"
+          - "Data Scientist or similar"
+          - "Database Administrator or similar"
+      skills:
+        prefer:
+          - "experience with any of Microsoft SQL Server, MySQL, MariaDB, PostgreSQL"
+        deprioritize:
+          - "strong emphasis on Oracle PL/SQL"
+      employment_type:
+        prefer:
+          - part_time
+      salary:
+        require:
+          - "minimum PLN 8,000; period and gross/net basis unspecified"
     max_results: 50
     notes: "Example only; replace with personal values."

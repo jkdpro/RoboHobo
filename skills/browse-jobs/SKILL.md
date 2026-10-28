@@ -11,6 +11,8 @@ This file holds the source-independent rules. Source-specific browsing steps liv
 
 - The plugin's `user_dir` is available as `${user_config.user_dir}` and defaults to `~/robohobo`.
 - Example files `${CLAUDE_PLUGIN_ROOT}/config/location.example.yaml` and `${CLAUDE_PLUGIN_ROOT}/config/searches.example.yaml` show the expected structure for user configuration.
+- Search criteria are grouped by category. A category may be a bare list, which is shorthand for `require`, or a mapping with `require`, `exclude`, `prefer`, and/or `deprioritize` lists. In a mapping, only explicitly present actions apply; a missing action does not imply `require`. Omit an action with no values and omit a category with no actions; do not use empty lists. A missing category means no criterion was provided. `null` is invalid and must not be treated as an empty list.
+- `require` means a listing must match at least one item in the list; alternatives are OR. Within one item, `and` means all joined conditions must match. `exclude` means a listing is rejected if it matches any listed item. `prefer` raises ranking when a listed item matches; `deprioritize` lowers ranking when a listed item matches but does not exclude it. The category defines what each item means; source-specific instructions define how to apply or assess it on each job portal.
 - When using a predefined search or saved preferences, read `${user_config.user_dir}/searches.yaml` and `${user_config.user_dir}/location.yaml` first.
 - Use explicit criteria from the current request instead of saved values when they conflict.
 - If a personal file is missing or unavailable, use the user's stated criteria and ask only for preferences that are necessary to resolve ambiguity. Do not invent values.
