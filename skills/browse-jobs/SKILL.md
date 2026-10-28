@@ -7,22 +7,10 @@ description: Search and browse job advertisements from supported sources, includ
 
 This file holds the source-independent rules. Source-specific browsing steps live in a separate file per source.
 
-## Constants
-- schema_version: 0
-
 ## Configuration
 
 - The plugin's `user_dir` is available as `${user_config.user_dir}` and defaults to `~/robohobo`.
-- Example files `${CLAUDE_PLUGIN_ROOT}/config/location.example.yaml` and `${CLAUDE_PLUGIN_ROOT}/config/searches.example.yaml` provide the correct schema and structure for user configuration.
-- The plugin's `schema_version` is set above in `Constants` section.
-- Prior to loading user configuration from yaml files please check if all existing files have correct schema version
-  - if the schema version is missing or incorrect, check if all listed above example configuration files have the correct schema version.
-    - if yes, please propose migrating existing outdated user's files to match the schema of example files; 
-      - if user agrees - go on with migration:
-        - infer the necessary changes basing on the example files
-        - please note that target files are outside your target directory. Please propose your changes and ask user if you can save there; alternatively ask user to copy-paste your suggestions to the proper place.
-      - if user declines, abort the migration and notify the user that the configuration remains outdated; after that ask what to do next.
-    - if no, report fatal config error and ask what to do.
+- Example files `${CLAUDE_PLUGIN_ROOT}/config/location.example.yaml` and `${CLAUDE_PLUGIN_ROOT}/config/searches.example.yaml` show the expected structure for user configuration.
 - When using a predefined search or saved preferences, read `${user_config.user_dir}/searches.yaml` and `${user_config.user_dir}/location.yaml` first.
 - Use explicit criteria from the current request instead of saved values when they conflict.
 - If a personal file is missing or unavailable, use the user's stated criteria and ask only for preferences that are necessary to resolve ambiguity. Do not invent values.
