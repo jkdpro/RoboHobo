@@ -79,7 +79,7 @@ The **search request** consists of the user's prompt, any explicitly invoked Rob
 1. Determine the criteria (role, keywords, location, seniority, and other filters) from the search request.
 2. If criteria are unclear, incomplete, or cannot be applied following general or source-specific rules, ask the user for clarification before proceeding.
 3. Run the search following the source's instructions file.
-4. Stop after the requested number of results. If no count is given, use `max_results` from the search or `defaults`; otherwise, return up to five relevant ads.
+4. Apply the result limit independently to each selected search. Use an explicit count from the prompt or invoked command, then `max_results` from that search or `defaults`; if no count is provided, return up to five relevant ads per search. Do not apply a combined limit across searches.
 5. Rank or shortlist the results against the user's preferences and note any red flags.
 
 ## Result format

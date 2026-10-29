@@ -18,7 +18,6 @@ searches:
     employment_type:
       require:
         - full_time
-    max_results: 50
     notes: "Example only; replace with personal values."
   - id: example-data
     job_category:
@@ -36,5 +35,5 @@ searches:
     employment_type:
       prefer:
         - part_time
-    max_results: 50
+    max_results: 25
     notes: "Example only; replace with personal values."
