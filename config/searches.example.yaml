@@ -13,6 +13,10 @@ searches:
       role:
         require:
           - ".NET developer"
+        exclude:
+          - "Python experience is required"
+        prefer:
+          - "roles that do not explicitly list API experience"
       seniority:
         require:
           - mid
@@ -20,14 +24,6 @@ searches:
       employment_type:
         require:
           - full_time
-      skills:
-        exclude:
-          - "Python experience is required"
-        prefer:
-          - "roles that do not explicitly list API experience"
-      salary:
-        require:
-          - "minimum PLN 8,000; period and gross/net basis unspecified"
     max_results: 50
     notes: "Example only; replace with personal values."
   - id: example-data
@@ -41,7 +37,6 @@ searches:
           - "Database Developer or similar"
           - "Data Scientist or similar"
           - "Database Administrator or similar"
-      skills:
         prefer:
           - "experience with any of Microsoft SQL Server, MySQL, MariaDB, PostgreSQL"
         deprioritize:
@@ -49,8 +44,5 @@ searches:
       employment_type:
         prefer:
           - part_time
-      salary:
-        require:
-          - "minimum PLN 8,000; period and gross/net basis unspecified"
     max_results: 50
     notes: "Example only; replace with personal values."
