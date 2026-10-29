@@ -42,8 +42,21 @@ If a search contains an unrecognized field, report its name and ask the user whe
 - User prompts or commands may select one or more predefined searches by `id`. IDs must be unique; if duplicates are found, report the conflicting IDs and ask the user how to proceed rather than choosing one.
 - If no predefined search ID is specified, use the criteria stated in the current request and applicable saved defaults; do not automatically run every predefined search. If it is unclear whether the user intends a saved search and which one, ask for clarification.
 - When multiple searches are selected, run each search separately and present its results separately under that search's ID. Do not combine or deduplicate results across searches.
-- Use explicit criteria from the current request instead of saved values when they conflict.
+- Resolve conflicting search values by precedence: explicit instructions in the current prompt override values supplied by an invoked RoboHobo command, which override values in personal YAML configuration (`prompt > RoboHobo command > YAML`). A RoboHobo command means a command defined by this plugin and explicitly invoked by the user; it does not mean an arbitrary terminal or Claude Code command. Commands will mainly select saved searches by ID, but may also provide or override search values; do not restrict commands to selection only. Apply the command tier when such commands are available.
 - If a personal file is missing or unavailable, use the user's stated criteria and ask only for preferences that are necessary to resolve ambiguity. Do not invent values.
+
+### `location.yaml` structure
+
+`location.yaml` is an optional YAML mapping of the user's preferred location and search radius. The example file shows its structure. Use values from the current prompt or an invoked RoboHobo command before falling back to this file, according to the precedence above. If the file or a value is absent, ask for location or range only when required by the requested search or source-specific instructions and not provided elsewhere. Do not invent values or use fictional example values as personal preferences.
+
+| Node | Shape | Meaning |
+| --- | --- | --- |
+| `home` | Mapping | Preferred home location. |
+| `home.city` | Non-empty string | Preferred city or locality. |
+| `home.country` | Non-empty string | Country identifier for the preferred location, such as `PL`. |
+| `radius_km` | Positive number | Preferred maximum distance from the home location, in kilometers. |
+
+If `location.yaml` contains an unrecognized field or an invalid node shape or value, report it and ask the user how to proceed; do not silently ignore or reinterpret it. Source-specific instructions define how to enter or map the provided location and radius on each portal.
 
 ## Sources
 
@@ -55,12 +68,13 @@ Read the instructions file for the requested source before browsing. If the sour
 
 ## Workflow
 
-1. Determine the criteria (role, keywords, location, seniority, other filters) from the prompt and, if relevant, the saved configuration
-- we will call prompt and saved configuration together the "search request"
-3. If criteria are unclear, are incomplete or cannot be applied following general or site-specific rules, ask the user for clarification before proceeding.
-4. Run the search following the source's instructions file
-5. Stop after the requested number of results. If no count is given, use `max_results` from the search or `defaults`, otherwise return up to five relevant ads.
-6. Rank or shortlist the results against the user's preferences and note any red flags.
+The **search request** consists of the user's prompt, any explicitly invoked RoboHobo command, and applicable saved YAML configuration, resolved using the precedence above.
+
+1. Determine the criteria (role, keywords, location, seniority, and other filters) from the search request.
+2. If criteria are unclear, incomplete, or cannot be applied following general or source-specific rules, ask the user for clarification before proceeding.
+3. Run the search following the source's instructions file.
+4. Stop after the requested number of results. If no count is given, use `max_results` from the search or `defaults`; otherwise, return up to five relevant ads.
+5. Rank or shortlist the results against the user's preferences and note any red flags.
 
 ## Result format
 
