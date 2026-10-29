@@ -58,6 +58,12 @@ If a search contains an unrecognized field, report its name and ask the user whe
 
 If `location.yaml` contains an unrecognized field or an invalid node shape or value, report it and ask the user how to proceed; do not silently ignore or reinterpret it. Source-specific instructions define how to enter or map the provided location and radius on each portal.
 
+### Configuration validation
+
+Validate the structure and values of configuration nodes that apply to the requested search. If a node has an invalid shape, missing required value, or invalid type/value, report its exact YAML path and the expected shape or value, then ask the user how to proceed. For example, `defaults` must be a mapping, `searches` must be a list of mappings, each search must have a unique non-empty string `id`, `max_results` must be a positive integer, and `location.yaml` values must match the shapes above. Do not coerce values, silently ignore or reinterpret invalid nodes, invent replacements, or use example values as personal configuration.
+
+If an invalid node prevents reliably identifying or configuring the requested search, stop and wait for clarification or a corrected configuration. If the problem is isolated to an optional node and the requested search can otherwise be run without ambiguity, proceed without that node only after the user explicitly confirms. Apply the same ask-before-proceeding rule to unrecognized fields and invalid criterion nodes described above.
+
 ## Sources
 
 | Source slug (`searches.yaml`) | Site | Instructions |
