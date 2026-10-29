@@ -16,20 +16,18 @@ This file holds the source-independent rules. Source-specific browsing steps liv
 
 `searches.yaml` is a YAML mapping with `defaults` and `searches` nodes. The example file shows a complete sample. The nodes below define the recognized structure; do not infer additional fields or meanings.
 
-| Node | Shape | Meaning |
-| --- | --- | --- |
-| `defaults` | Mapping | Values used when a search does not set the corresponding option. |
-| `defaults.max_results` | Positive integer | Default maximum number of listings to return. |
-| `defaults.sites` | List of source slugs | Sources to search by default; each slug must appear in the Sources table below. |
-| `searches` | List of mappings | The predefined searches. |
-| `searches[].id` | Non-empty string | Identifier for the search. |
-| `searches[].job_category` | Action mapping | Broad occupational field or industry, using text labels such as `IT`. This node contains action keys. |
-| `searches[].criteria` | Action mapping | Other job-content criteria, such as role titles, skills, technologies, or qualifications. This node contains action keys; its values are free-text descriptions and are not divided into additional named categories. |
-| `searches[].employment_type` | Action mapping | Employment arrangement or work schedule, using text labels or slugs such as `full_time` or `part_time`. This node contains action keys; source-specific instructions define how to apply its values on each portal. |
-| `searches[].max_results` | Positive integer | Maximum number of listings to return for this search; overrides `defaults.max_results`. |
-| `searches[].notes` | String | Human-readable note; do not treat it as a search criterion. |
+| Node | Shape | Action keys? | Meaning |
+| --- | --- | --- | --- |
+| `defaults` | Mapping | No | May contain the same search-configuration nodes as an individual search under `searches`, except `id` and `notes`. Values specified on an individual search take precedence. |
+| `searches` | List of mappings | No | The predefined searches. |
+| `searches[].id` | Non-empty string | No | Identifier for the search. |
+| `searches[].job_category` | Mapping of actions to lists of strings | Yes | Broad occupational field or industry, using text labels such as `IT`. |
+| `searches[].criteria` | Mapping of actions to lists of strings | Yes | Other job-content criteria, such as role titles, skills, technologies, or qualifications. Values are free-text descriptions and are not divided into additional named categories. |
+| `searches[].employment_type` | Mapping of actions to lists of strings | Yes | Employment arrangement or work schedule, using text labels or slugs such as `full_time` or `part_time`. Source-specific instructions define how to apply its values on each portal. |
+| `searches[].max_results` | Positive integer | No | Maximum number of listings to return for this search; overrides `defaults.max_results`. |
+| `searches[].notes` | String | No | Human-readable note; do not treat it as a search criterion. |
 
-The criterion nodes with action keys are `job_category`, `criteria`, and `employment_type`. For each, the action key maps to a list of non-empty YAML strings. Supported actions are `require`, `exclude`, `prefer`, and `deprioritize`. A bare list is also accepted as shorthand for `require`. In a mapping, only explicitly present actions apply; a missing action does not imply `require`. Omit actions with no values and omit criterion nodes with no actions; do not use empty lists. A missing criterion node means no criterion was provided. `null` is invalid and must not be treated as an empty list.
+For each, the action key maps to a list of non-empty YAML strings. Supported actions are `require`, `exclude`, `prefer`, and `deprioritize`. A bare list is also accepted as shorthand for `require`. In a mapping, only explicitly present actions apply; a missing action does not imply `require`. Omit actions with no values and omit criterion nodes with no actions; do not use empty lists. A missing criterion node means no criterion was provided. `null` is invalid and must not be treated as an empty list.
 
 - `require`: a listing must match at least one item in the list; items are alternatives (OR). Within one item, `and` means all joined conditions must match.
 - `exclude`: reject a listing if it matches any listed item.
