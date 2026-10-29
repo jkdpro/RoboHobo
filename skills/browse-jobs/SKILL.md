@@ -23,7 +23,7 @@ This file holds the source-independent rules. Source-specific browsing steps liv
 | `searches[].id` | Unique, non-empty string | No | Identifier for the search. User prompts and commands select predefined searches by this ID. |
 | `defaults.sites` | Non-empty list of registered site slugs | No | Sites to search by default when a search does not specify `sites`; use only language-neutral slugs listed in Sources. |
 | `searches[].sites` | Non-empty list of registered site slugs | No | Sites to search. Replaces `defaults.sites`; use only language-neutral slugs listed in Sources. |
-| `searches[].job_category` | Mapping of actions to lists of allowed slugs | Yes | Broad occupational field or industry. The only allowed language-neutral slug for now is `IT`; source-specific instructions define how each site interprets it, including whether it maps to constraints or a starting URL. |
+| `searches[].job_category` | Mapping of actions to lists of registered job-category slugs | Yes | Broad occupational field or industry. Use only slugs listed in Job categories; source-specific instructions define how each site interprets them, including whether they map to constraints or a starting URL. |
 | `searches[].criteria` | Mapping of actions to lists of strings | Yes | Other job-content criteria, such as role titles, skills, technologies, or qualifications. Values are free-text descriptions in English or Polish and are not divided into additional named categories. |
 | `searches[].employment_type` | Mapping of actions to lists of allowed slugs | Yes | Employment arrangement or work schedule. Allowed language-neutral slugs are `full_time`, `part_time`, and `temporary`; source-specific instructions define how to apply them on each portal. |
 | `searches[].max_results` | Positive integer | No | Maximum number of listings to return per site for this search; overrides `defaults.max_results`. |
@@ -38,7 +38,7 @@ The general precedence is `prompt > invoked RoboHobo command > YAML`; YAML value
 - `prefer`: rank a listing higher when it matches a listed item.
 - `deprioritize`: rank a listing lower when it matches a listed item, but do not exclude it.
 
-The criterion node defines the kind of information its values describe; source-specific instructions define how to apply or assess each criterion on a job portal. Do not use a portal-specific implementation to change the universal intent. Validate `job_category` and `employment_type` values against their allowed slugs above; do not invent or infer additional slugs. Site values must be registered language-neutral slugs listed in Sources; do not translate site names into slugs. Match free-text `criteria` by meaning across English- and Polish-language listings. For each effective search definition, inspect free-text criteria from the prompt, invoked command, selected search, and defaults after precedence is applied. If the resulting criteria mix English and Polish, warn the user but continue processing. Do not apply this check to search IDs, `notes`, language-neutral slugs, or location values.
+The criterion node defines the kind of information its values describe; source-specific instructions define how to apply or assess each criterion on a job portal. Do not use a portal-specific implementation to change the universal intent. Validate `job_category` values against Job categories and `employment_type` values against their allowed slugs above; do not invent or infer additional slugs. Site values must be registered language-neutral slugs listed in Sources; do not translate site names into slugs. Match free-text `criteria` by meaning across English- and Polish-language listings. For each effective search definition, inspect free-text criteria from the prompt, invoked command, selected search, and defaults after precedence is applied. If the resulting criteria mix English and Polish, warn the user but continue processing. Do not apply this check to search IDs, `notes`, language-neutral slugs, or location values.
 
 If a search contains an unrecognized field, report its name and ask the user whether to continue without it. Do not run the affected search until the user confirms; do not silently ignore, reinterpret, or move the field's value to another node. If a criterion node has an invalid shape, an unknown action, or invalid values, report the problem and ask the user how to proceed. Do not treat an unknown action as `require` or as an empty list.
 
@@ -69,6 +69,14 @@ If `location.yaml` contains an unrecognized field or an invalid node shape or va
 Validate the structure and values of configuration nodes that apply to the requested search. If a node has an invalid shape, missing required value, or invalid type/value, report its exact YAML path and the expected shape or value, then ask the user how to proceed. For example, `defaults` must be a mapping, `searches` must be a list of mappings, each search must have a unique non-empty string `id`, `max_results` must be a positive integer, and `location.yaml` values must match the shapes above. Do not coerce values, silently ignore or reinterpret invalid nodes, invent replacements, or use example values as personal configuration.
 
 An explicitly present `sites` list must be a non-empty list of strings; `sites: []` is invalid and requires correction rather than falling back to defaults. If an invalid node prevents reliably identifying or configuring the requested search, stop and wait for clarification or a corrected configuration. If the problem is isolated to an optional node and the requested search can otherwise be run without ambiguity, proceed without that node only after the user explicitly confirms. Apply the same ask-before-proceeding rule to unrecognized fields and invalid criterion nodes described above.
+
+## Job categories
+
+| Slug (`searches.yaml`) | Meaning |
+| --- | --- |
+| `IT` | Information technology |
+
+Use only registered job-category slugs in `job_category` values. If a requested category is not listed, ask the user how to proceed; do not invent or infer a slug. Source-specific instructions define how each registered category is applied on a portal.
 
 ## Sources
 
