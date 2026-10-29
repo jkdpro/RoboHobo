@@ -20,7 +20,7 @@ This file holds the source-independent rules. Source-specific browsing steps liv
 | --- | --- | --- | --- |
 | `defaults` | Mapping | No | May contain the same search-configuration nodes as an individual search under `searches`, except `id` and `notes`. Values specified on an individual search take precedence. |
 | `searches` | List of mappings | No | The predefined searches. |
-| `searches[].id` | Non-empty string | No | Identifier for the search. |
+| `searches[].id` | Unique, non-empty string | No | Identifier for the search. User prompts and commands select predefined searches by this ID. |
 | `searches[].job_category` | Mapping of actions to lists of strings | Yes | Broad occupational field or industry, using text labels such as `IT`. |
 | `searches[].criteria` | Mapping of actions to lists of strings | Yes | Other job-content criteria, such as role titles, skills, technologies, or qualifications. Values are free-text descriptions and are not divided into additional named categories. |
 | `searches[].employment_type` | Mapping of actions to lists of strings | Yes | Employment arrangement or work schedule, using text labels or slugs such as `full_time` or `part_time`. Source-specific instructions define how to apply its values on each portal. |
@@ -39,6 +39,9 @@ The node defines the kind of information its values describe; source-specific in
 If a search contains an unrecognized field, report its name and ask the user whether to continue without it. Do not run the affected search until the user confirms; do not silently ignore, reinterpret, or move the field's value to another node. If a criterion node has an invalid shape, an unknown action, or invalid values, report the problem and ask the user how to proceed. Do not treat an unknown action as `require` or as an empty list.
 
 - When using a predefined search or saved preferences, read `${user_config.user_dir}/searches.yaml` and `${user_config.user_dir}/location.yaml` first.
+- User prompts or commands may select one or more predefined searches by `id`. IDs must be unique; if duplicates are found, report the conflicting IDs and ask the user how to proceed rather than choosing one.
+- If no predefined search ID is specified, use the criteria stated in the current request and applicable saved defaults; do not automatically run every predefined search. If it is unclear whether the user intends a saved search and which one, ask for clarification.
+- When multiple searches are selected, run each search separately and present its results separately under that search's ID. Do not combine or deduplicate results across searches.
 - Use explicit criteria from the current request instead of saved values when they conflict.
 - If a personal file is missing or unavailable, use the user's stated criteria and ask only for preferences that are necessary to resolve ambiguity. Do not invent values.
 
