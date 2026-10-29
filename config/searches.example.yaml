@@ -5,44 +5,36 @@ defaults:
 
 searches:
   - id: example-net
-    enabled: true
+    job_category:
+      require:
+        - IT
     criteria:
-      job_category:
-        require:
-          - IT
-      role:
-        require:
-          - ".NET developer"
-        exclude:
-          - "Python experience is required"
-        prefer:
-          - "roles that do not explicitly list API experience"
-      seniority:
-        require:
-          - mid
-          - senior
-      employment_type:
-        require:
-          - full_time
+      require:
+        - ".NET developer"
+      exclude:
+        - "Python experience is required"
+      prefer:
+        - "roles that do not explicitly list API experience"
+    employment_type:
+      require:
+        - full_time
     max_results: 50
     notes: "Example only; replace with personal values."
   - id: example-data
-    enabled: true
+    job_category:
+      require:
+        - IT
     criteria:
-      job_category:
-        require:
-          - IT
-      role:
-        require:
-          - "Database Developer or similar"
-          - "Data Scientist or similar"
-          - "Database Administrator or similar"
-        prefer:
-          - "experience with any of Microsoft SQL Server, MySQL, MariaDB, PostgreSQL"
-        deprioritize:
-          - "strong emphasis on Oracle PL/SQL"
-      employment_type:
-        prefer:
-          - part_time
+      require:
+        - "Database Developer or similar"
+        - "Data Scientist or similar"
+        - "Database Administrator or similar"
+      prefer:
+        - "experience with any of Microsoft SQL Server, MySQL, MariaDB, PostgreSQL"
+      deprioritize:
+        - "strong emphasis on Oracle PL/SQL"
+    employment_type:
+      prefer:
+        - part_time
     max_results: 50
     notes: "Example only; replace with personal values."
