@@ -18,6 +18,9 @@ searches:
     employment_type:
       require:
         - full_time
+    work_mode:
+      prefer:
+        - remote
     notes: "Example only; replace with personal values."
   - id: example-data
     job_category:
