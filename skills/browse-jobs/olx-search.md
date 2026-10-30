@@ -18,12 +18,12 @@ The mappings below cover nodes inside an individual search definition. `SKILL.md
 | `searches[].sites` | Handled by the general workflow in `SKILL.md`; no additional OLX-specific behavior. |
 | `searches[].max_results` | Handled by the general workflow in `SKILL.md`; no additional OLX-specific behavior. |
 | `searches[].notes` | Handled by the general workflow in `SKILL.md`; no additional OLX-specific behavior. |
+| `searches[].job_category` | TBD — define how the single registered job-category slug, including `IT`, is applied on OLX. This scalar node has no action keys. |
 
-#### Criterion nodes
+#### Action-bearing criterion nodes
 
 | Node | Require / exclude — OLX implementation | Prefer / deprioritize — OLX implementation |
 | --- | --- | --- |
-| `searches[].job_category` | TBD — define how each slug, including `IT`, affects OLX search constraints or candidate assessment. | TBD — define how each slug, including `IT`, affects OLX ranking or candidate assessment. |
 | `searches[].criteria` | TBD — define how free-text criteria affect OLX search controls, listing cards, or ad details as constraints. | TBD — define how free-text criteria affect OLX ranking using listing cards or ad details. |
 | `searches[].employment_type` | TBD — define how `full_time`, `part_time`, and `temporary` map to OLX constraints and how multiple values are handled. | TBD — define how `full_time`, `part_time`, and `temporary` affect OLX ranking. |
 | `searches[].work_mode` | TBD — define how `onsite`, `hybrid`, and `remote` are applied or assessed as OLX constraints. | TBD — define how `onsite`, `hybrid`, and `remote` affect OLX ranking. |

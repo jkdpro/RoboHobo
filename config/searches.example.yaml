@@ -5,9 +5,7 @@ defaults:
 
 searches:
   - id: example-net
-    job_category:
-      require:
-        - IT
+    job_category: IT
     criteria:
       require:
         - ".NET developer"
@@ -23,9 +21,7 @@ searches:
         - remote
     notes: "Example only; replace with personal values."
   - id: example-data
-    job_category:
-      require:
-        - IT
+    job_category: IT
     criteria:
       require:
         - "Database Developer or similar"
