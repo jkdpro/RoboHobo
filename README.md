@@ -45,7 +45,7 @@ The selected user directory contains:
 
 The tracked files in [`config/`](config/) are safe examples for these two personal files:
 
-- [`config/searches.example.yaml`](config/searches.example.yaml) contains all predefined searches in one file, including single-slug non-action `job_category` values and per-search `work_mode` preferences.
+- [`config/searches.example.yaml`](config/searches.example.yaml) contains all predefined searches in one file, including single-slug non-action `job_category` values, `job_content` action lists, and per-search `work_mode` preferences.
 - [`config/location.example.yaml`](config/location.example.yaml) contains the preferred location and search radius.
 
-Copy the examples to the selected user directory and replace the fictional values with personal values. The job-search skills read these files when using predefined searches or saved preferences; explicit criteria from the current request take precedence. If a personal file is missing, the skills use the user's stated criteria and ask only for necessary missing information. Do not commit personal configuration files or add personal data to the examples.
+Copy the examples to the selected user directory and replace the fictional values with personal values. The job-search skills read these files when using predefined searches or saved preferences; explicit search details from the current request take precedence. If a personal file is missing, the skills use the user's stated search details and ask only for necessary missing information. Do not commit personal configuration files or add personal data to the examples.
