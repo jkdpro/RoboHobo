@@ -8,39 +8,48 @@ Resolve the search request and validate its structure as described in `SKILL.md`
 
 ### `searches.yaml`
 
-| Node | Shape / actions | OLX implementation | Status |
-| --- | --- | --- | --- |
-| `defaults` | Mapping; may contain the same search nodes as an individual search except `id` and `notes`. | Its applicable values are resolved into each effective search according to `SKILL.md`; apply the same OLX mappings used for search-level values. | Defined by `SKILL.md` |
-| `searches` | List of mappings. | Run only selected searches; keep each search's result list and ranking separate. | Defined by `SKILL.md` |
-| `searches[].id` | Unique, non-empty string. | Use as the label for the search and its result section; it does not affect OLX filters. | Defined by `SKILL.md` |
-| `defaults.sites` | Non-empty list of registered site slugs. | Use the resolved site list; this file applies when the selected source is `olx`. | Defined by `SKILL.md` |
-| `searches[].sites` | Non-empty list of registered site slugs. | Use the resolved site list; this file applies when the selected source is `olx`. | Defined by `SKILL.md` |
-| `defaults.job_category` / `searches[].job_category` | Mapping of action keys to lists of registered job-category slugs. | Define how each slug, including `IT`, maps to an OLX category/filter, starting point, or relevance-assessment context. | TBD |
-| `defaults.criteria` / `searches[].criteria` | Mapping of action keys to lists of free-text strings. | Define how free-text criteria affect OLX search controls, listing cards, or ad details. | TBD |
-| `defaults.employment_type` / `searches[].employment_type` | Mapping of action keys to lists of registered slugs. | Define how `full_time`, `part_time`, and `temporary` map to OLX filters and listing information, including handling multiple values. | TBD |
-| `defaults.work_mode` / `searches[].work_mode` | Mapping of action keys to lists of registered slugs. | Define how `onsite`, `hybrid`, and `remote` are applied or assessed on OLX, including how constraints and preferences differ. | TBD |
-| Action keys on criterion nodes | `require`, `exclude`, `prefer`, and `deprioritize`; definitions are in `SKILL.md`. | Define OLX-specific application of each action while preserving its universal meaning in `SKILL.md`. | TBD |
-| `defaults.max_results` / `searches[].max_results` | Positive integer. | Apply the resolved limit independently to OLX within this search; do not combine limits across sites or searches. | Defined by `SKILL.md` |
-| `searches[].notes` | String. | No search behavior; notes are not search criteria. | Defined by `SKILL.md` |
+The mappings below cover nodes inside an individual search definition. `SKILL.md` resolves defaults and higher-precedence prompt or command values before these OLX mappings are applied. The action meanings are defined in `SKILL.md`; OLX-specific implementations must preserve them.
+
+#### Individual search fields
+
+| Node | OLX implementation |
+| --- | --- |
+| `searches[].id` | Use as the label for the search and its result section; it does not affect OLX filters. |
+| `searches[].sites` | Use the resolved site list; this file applies when the selected source is `olx`. |
+| `searches[].max_results` | Apply the resolved limit independently to OLX within this search; do not combine limits across sites or searches. |
+| `searches[].notes` | No search behavior; notes are not search criteria. |
+
+#### Criterion nodes
+
+| Node | Require / exclude — OLX implementation | Prefer / deprioritize — OLX implementation |
+| --- | --- | --- |
+| `searches[].job_category` | TBD — define how each slug, including `IT`, affects OLX search constraints or candidate assessment. | TBD — define how each slug, including `IT`, affects OLX ranking or candidate assessment. |
+| `searches[].criteria` | TBD — define how free-text criteria affect OLX search controls, listing cards, or ad details as constraints. | TBD — define how free-text criteria affect OLX ranking using listing cards or ad details. |
+| `searches[].employment_type` | TBD — define how `full_time`, `part_time`, and `temporary` map to OLX constraints and how multiple values are handled. | TBD — define how `full_time`, `part_time`, and `temporary` affect OLX ranking. |
+| `searches[].work_mode` | TBD — define how `onsite`, `hybrid`, and `remote` are applied or assessed as OLX constraints. | TBD — define how `onsite`, `hybrid`, and `remote` affect OLX ranking. |
 
 ### `location.yaml`
 
-| Node | OLX implementation | Status |
-| --- | --- | --- |
-| `home` | How the preferred location is represented in OLX's location control. | TBD |
-| `home.city` | How to enter the supplied city/locality verbatim and select the intended OLX location result. | TBD |
-| `home.country` | Whether or how the country value affects an OLX.pl search. | TBD |
-| `radius_km` | How the supplied radius is mapped to OLX's available distance options. | TBD |
+| Node | OLX implementation |
+| --- | --- |
+| `home` | TBD — define how the preferred location is represented in OLX's location control. |
+| `home.city` | TBD — define how to enter the supplied city/locality verbatim and select the intended OLX location result. |
+| `home.country` | TBD — define whether or how the country value affects an OLX.pl search. |
+| `radius_km` | TBD — define how the supplied radius is mapped to OLX's available distance options. |
 
-## Workflow scaffold
+## Workflow
 
-1. Read and follow `SKILL.md`; resolve the effective search and location values, validate them, and ask any required questions before browsing.
-2. Open the OLX.pl jobs area and prepare the page for searching. Determine the page language and handle any permitted initial page dialog in accordance with the general guardrails.
+This workflow assumes that `SKILL.md` has resolved and validated the effective search and location values and that any required clarification has been obtained before browsing.
+
+1. Open the OLX.pl jobs area and prepare the page for searching. Determine the page language and handle any permitted initial page dialog in accordance with the general guardrails.
+2. Process each selected search separately: complete steps 3–6 for one search before starting the next. Keep its candidate list and ranking isolated from all other searches.
 3. Apply the resolved location and radius using the `location.yaml` mapping above.
-4. Apply each resolved search condition using the `searches.yaml` mapping above. Keep constraints distinct from ranking preferences and do not improvise behavior for TBD mappings.
-5. Inspect the result list and gather candidate ads using the approved OLX interactions. Apply the criteria and result-limit rules from `SKILL.md`; keep this search's results and ranking separate from all other searches and sites.
-6. Inspect ad details only as needed to assess criteria that cannot be determined from the result list. Use the result format and evidence rules in `SKILL.md`.
-7. Present the results and any limitations or unresolved OLX-specific mappings. Close the browser when the search is complete if the browser session supports it.
+4. Apply the resolved conditions for this search using the `searches.yaml` mappings above. Keep constraints distinct from ranking preferences; do not improvise behavior for a TBD mapping, and ask the user if it prevents proceeding.
+5. Inspect the result list and ad details as needed to assess the resolved conditions. Reject listings that fail constraints, then apply the result limit as defined in `SKILL.md` and rank the remaining results using preferences, based only on information visibly present on OLX.
+6. Present this search's results under its ID using the result format and evidence rules in `SKILL.md`. Include relevant limitations or unresolved OLX-specific mappings.
+
+After all selected searches are complete, close the browser if the browser session supports it.
+
 
 ## Browser interaction notes
 
