@@ -39,15 +39,14 @@ The mappings below cover nodes inside an individual search definition. `SKILL.md
 
 ## Site-specific workflow
 
-This workflow is invoked by the **General Workflow** in `SKILL.md` after it has resolved and validated the effective search and location values and obtained any required clarification. It performs OLX-specific browsing and returns candidate listings with the visible information needed for the General Workflow to apply result limits, rank results, and present them. If an OLX-specific step raises an ambiguity or decision that requires user clarification, do not guess or continue the affected search on OLX. Record the issue and defer that search; the General Workflow in `SKILL.md` determines how to continue other work and when to ask the user.
+The **General Workflow** in `SKILL.md` invokes this workflow separately for each selected search that includes OLX, after resolving and validating that search's effective values and obtaining any required clarification. The General Workflow iterates searches outermost: it completes the selected sites for one search before moving to the next search. This workflow handles only the current search; do not loop over other selected searches here. Return candidate listings with the visible information needed for the General Workflow to apply result limits, rank results, and present them. If an OLX-specific step raises an ambiguity or decision that requires user clarification, do not guess or continue the affected search on OLX. Record the issue and defer that search; the General Workflow in `SKILL.md` determines how to continue other work and when to ask the user.
 
-1. Open the OLX.pl jobs area and prepare the page for searching. Determine the page language and handle any permitted initial page dialog in accordance with the general guardrails.
-2. Process each selected search separately: complete steps 3–5 for one search before starting the next. Keep each search's candidate list isolated from all other searches.
-3. Apply the resolved location and radius using the `location.yaml` mapping above.
-4. Apply the resolved conditions for this search using the `searches.yaml` mappings above. Keep constraints distinct from ranking preferences; do not improvise behavior for a TBD mapping, and ask the user if it prevents proceeding.
-5. Inspect the result list and ad details as needed to assess the resolved conditions. Reject listings that fail constraints and collect the visible information needed to assess preferences. Use only information visibly present on OLX.
+1. Open the OLX.pl jobs area or reuse the prepared page if it is already open. Determine the page language and handle any permitted initial page dialog in accordance with the general guardrails.
+2. Apply the resolved location and radius for this search using the `location.yaml` mapping above.
+3. Apply the resolved conditions for this search using the `searches.yaml` mappings above. Keep constraints distinct from ranking preferences; do not improvise behavior for a TBD mapping, and ask the user if it prevents proceeding.
+4. Inspect the result list and ad details as needed to assess the resolved conditions. Reject listings that fail constraints and collect the visible information needed to assess preferences. Use only information visibly present on OLX.
 
-After all selected searches are complete, close the browser if the browser session supports it, then return the candidate listings and any relevant limitations or unresolved OLX-specific mappings to the General Workflow.
+Return this search's candidate listings and any relevant limitations or unresolved OLX-specific mappings to the General Workflow. Close the browser after all selected searches and sites are complete if the browser session supports it.
 
 
 ## Browser interaction notes
