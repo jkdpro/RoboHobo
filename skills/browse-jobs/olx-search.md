@@ -14,10 +14,10 @@ The mappings below cover nodes inside an individual search definition. `SKILL.md
 
 | Node | OLX implementation |
 | --- | --- |
-| `searches[].id` | Use as the label for the search and its result section; it does not affect OLX filters. |
-| `searches[].sites` | Use the resolved site list; this file applies when the selected source is `olx`. |
-| `searches[].max_results` | Apply the resolved limit independently to OLX within this search; do not combine limits across sites or searches. |
-| `searches[].notes` | No search behavior; notes are not search criteria. |
+| `searches[].id` | Handled by the general workflow in `SKILL.md`; no additional OLX-specific behavior. |
+| `searches[].sites` | Handled by the general workflow in `SKILL.md`; no additional OLX-specific behavior. |
+| `searches[].max_results` | Handled by the general workflow in `SKILL.md`; no additional OLX-specific behavior. |
+| `searches[].notes` | Handled by the general workflow in `SKILL.md`; no additional OLX-specific behavior. |
 
 #### Criterion nodes
 
