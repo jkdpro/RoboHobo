@@ -93,11 +93,12 @@ The **search request** consists of the user's prompt, any explicitly invoked Rob
 
 1. Determine the criteria (role, keywords, location, seniority, and other filters) from the search request.
 2. If criteria are unclear, incomplete, or cannot be applied following general or source-specific rules, ask the user for clarification before proceeding.
-3. For each selected site, execute its **Site-specific workflow** in the source instructions file. That workflow performs portal-specific interactions and gathers candidate listings with the visible information needed to assess the search request. Then continue with this General Workflow; source-specific instructions must not override its result limits, ranking, or presentation rules.
-4. If a site-specific workflow encounters an ambiguity or decision that requires user clarification, do not guess or continue the affected search on that site. Defer that search/site, record what needs clarification, and continue with other selected searches and sites that can proceed safely.
-5. Apply the result limit independently per site within each selected search. Use an explicit count from the prompt or invoked command, then `max_results` from that search or `defaults`; if no count is provided, return up to five relevant ads per site. Do not apply a combined limit across sites or searches.
-6. Rank or shortlist the results against the user's preferences and note any red flags.
-7. Present all results that could be completed using the Result format below. Then ask the user about any deferred clarification(s), identifying the affected search and site.
+3. Process selected searches outermost, keeping each search's results and ranking independent. For each selected site within a search, determine the per-site result cap: use an explicit count from the prompt or invoked command, then `max_results` from that search or `defaults`; if neither provides a count, use five. Pass the resolved search request and cap to the site's **Site-specific workflow**.
+4. The site-specific workflow performs portal interactions, applies require/exclude constraints as portal filters where possible, checks any remaining or only partially enforced constraints against visible listing information, ranks qualifying candidates using prefer/deprioritize criteria, and returns at most the supplied cap. It may return fewer results when fewer listings qualify or are available. Keep limits independent per site and search; do not apply a combined limit.
+5. If a site-specific workflow encounters an ambiguity or decision that requires user clarification, do not guess or continue the affected search on that site. Defer that search/site, record what needs clarification, and continue with other selected searches and sites that can proceed safely.
+6. Present all results that could be completed using the Result format below, preserving the site workflow's ranking and result cap. Then ask the user about any deferred clarification(s), identifying the affected search and site.
+
+Source-specific workflows must follow the resolved cap and universal criterion semantics above. They may impose a stricter browsing limit, but must not return more than the cap or weaken a require/exclude constraint.
 
 ## Result format
 
