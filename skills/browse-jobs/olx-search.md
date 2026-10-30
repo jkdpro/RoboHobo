@@ -37,18 +37,17 @@ The mappings below cover nodes inside an individual search definition. `SKILL.md
 | `home.country` | TBD — define whether or how the country value affects an OLX.pl search. |
 | `radius_km` | TBD — define how the supplied radius is mapped to OLX's available distance options. |
 
-## Workflow
+## Site-specific workflow
 
-This workflow assumes that `SKILL.md` has resolved and validated the effective search and location values and that any required clarification has been obtained before browsing.
+This workflow is invoked by the **General Workflow** in `SKILL.md` after it has resolved and validated the effective search and location values and obtained any required clarification. It performs OLX-specific browsing and returns candidate listings with the visible information needed for the General Workflow to apply result limits, rank results, and present them. If an OLX-specific step raises an ambiguity or decision that requires user clarification, do not guess or continue the affected search on OLX. Record the issue and defer that search; the General Workflow in `SKILL.md` determines how to continue other work and when to ask the user.
 
 1. Open the OLX.pl jobs area and prepare the page for searching. Determine the page language and handle any permitted initial page dialog in accordance with the general guardrails.
-2. Process each selected search separately: complete steps 3–6 for one search before starting the next. Keep its candidate list and ranking isolated from all other searches.
+2. Process each selected search separately: complete steps 3–5 for one search before starting the next. Keep each search's candidate list isolated from all other searches.
 3. Apply the resolved location and radius using the `location.yaml` mapping above.
 4. Apply the resolved conditions for this search using the `searches.yaml` mappings above. Keep constraints distinct from ranking preferences; do not improvise behavior for a TBD mapping, and ask the user if it prevents proceeding.
-5. Inspect the result list and ad details as needed to assess the resolved conditions. Reject listings that fail constraints, then apply the result limit as defined in `SKILL.md` and rank the remaining results using preferences, based only on information visibly present on OLX.
-6. Present this search's results under its ID using the result format and evidence rules in `SKILL.md`. Include relevant limitations or unresolved OLX-specific mappings.
+5. Inspect the result list and ad details as needed to assess the resolved conditions. Reject listings that fail constraints and collect the visible information needed to assess preferences. Use only information visibly present on OLX.
 
-After all selected searches are complete, close the browser if the browser session supports it.
+After all selected searches are complete, close the browser if the browser session supports it, then return the candidate listings and any relevant limitations or unresolved OLX-specific mappings to the General Workflow.
 
 
 ## Browser interaction notes

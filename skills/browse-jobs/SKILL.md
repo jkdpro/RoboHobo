@@ -87,15 +87,17 @@ Use only registered job-category slugs in `job_category` values. If a requested 
 
 Read the instructions file for the requested source before browsing. If the source is not listed, say so instead of improvising.
 
-## Workflow
+## General Workflow
 
 The **search request** consists of the user's prompt, any explicitly invoked RoboHobo command, and applicable saved YAML configuration, resolved using the precedence above.
 
 1. Determine the criteria (role, keywords, location, seniority, and other filters) from the search request.
 2. If criteria are unclear, incomplete, or cannot be applied following general or source-specific rules, ask the user for clarification before proceeding.
-3. Run the search following the source's instructions file.
-4. Apply the result limit independently per site within each selected search. Use an explicit count from the prompt or invoked command, then `max_results` from that search or `defaults`; if no count is provided, return up to five relevant ads per site. Do not apply a combined limit across sites or searches.
-5. Rank or shortlist the results against the user's preferences and note any red flags.
+3. For each selected site, execute its **Site-specific workflow** in the source instructions file. That workflow performs portal-specific interactions and gathers candidate listings with the visible information needed to assess the search request. Then continue with this General Workflow; source-specific instructions must not override its result limits, ranking, or presentation rules.
+4. If a site-specific workflow encounters an ambiguity or decision that requires user clarification, do not guess or continue the affected search on that site. Defer that search/site, record what needs clarification, and continue with other selected searches and sites that can proceed safely.
+5. Apply the result limit independently per site within each selected search. Use an explicit count from the prompt or invoked command, then `max_results` from that search or `defaults`; if no count is provided, return up to five relevant ads per site. Do not apply a combined limit across sites or searches.
+6. Rank or shortlist the results against the user's preferences and note any red flags.
+7. Present all results that could be completed using the Result format below. Then ask the user about any deferred clarification(s), identifying the affected search and site.
 
 ## Result format
 
