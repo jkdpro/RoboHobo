@@ -4,13 +4,25 @@ Claude Code plugin (`robohobo`) that searches job advertisements and returns a r
 
 ## Layout
 
-- `.claude-plugin/plugin.json` - plugin manifest, including the `user_dir` `userConfig` option (default `~/robohobo`).
-- `.mcp.json` - Playwright MCP server used for browsing (`--isolated`, system Chromium path). The browser path is machine-specific.
-- `skills/browse-jobs/SKILL.md` - source-independent rules: configuration, workflow, result format, guardrails, and the table of sources.
-- `skills/browse-jobs/olx-search.md` - OLX.pl-only browsing steps.
-- `config/*.example.yaml` - fictional examples of the personal `searches.yaml` and `location.yaml`.
+- `CLAUDE.md` - repository development instructions; not part of the installed plugin.
+- `claude-code-plugin/` - the self-contained Claude Code plugin root.
+- `claude-code-plugin/.claude-plugin/plugin.json` - plugin manifest, including the `user_dir` `userConfig` option (default `~/robohobo`).
+- `claude-code-plugin/.mcp.json` - Playwright MCP server used for browsing (`--isolated`, system Chromium path). The browser path is machine-specific.
+- `claude-code-plugin/skills/browse-jobs/SKILL.md` - source-independent rules: configuration, workflow, result format, guardrails, and the table of sources.
+- `claude-code-plugin/skills/browse-jobs/olx-search.md` - OLX.pl-only browsing steps.
+- `claude-code-plugin/config/*.example.yaml` - fictional examples of the personal `searches.yaml` and `location.yaml`.
+- `apps/web/` and `database/schema/` - reserved placeholders for possible future work; no frontend or schema is implemented yet.
 
-There is no build system and no test suite. The skills are prompt text, so changes can only be checked by reading them and by running the skill.
+There is no build system and no test suite. The skills are prompt text, so changes can only be checked by reading them and by running the skill. Validate the plugin from the repository root with `claude plugin validate ./claude-code-plugin`.
+
+For consumer-style testing, start Claude Code with its working directory outside this repository and load the plugin explicitly, for example:
+
+```sh
+cd /tmp
+claude --plugin-dir /path/to/RoboHobo/claude-code-plugin
+```
+
+A session started from inside the repository may load the repository's `CLAUDE.md` as project instructions, independently of the plugin.
 
 ## Conventions
 

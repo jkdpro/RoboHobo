@@ -1,6 +1,6 @@
 # RoboHobo
 
-Claude plugin for job search.
+Claude Code plugin for job search. The Git repository contains the project documentation and future-work placeholders; the self-contained plugin package is in [`claude-code-plugin/`](claude-code-plugin/).
 
 ## reason and approach
 
@@ -43,9 +43,9 @@ The selected user directory contains:
 └── location.yaml
 ```
 
-The tracked files in [`config/`](config/) are safe examples for these two personal files:
+The tracked files in [`claude-code-plugin/config/`](claude-code-plugin/config/) are safe examples for these two personal files:
 
-- [`config/searches.example.yaml`](config/searches.example.yaml) contains all predefined searches in one file, including single-slug non-action `job_category` values, `job_content` action lists, and per-search `work_mode` preferences.
-- [`config/location.example.yaml`](config/location.example.yaml) contains the preferred location and search radius.
+- [`searches.example.yaml`](claude-code-plugin/config/searches.example.yaml) contains all predefined searches in one file, including single-slug non-action `job_category` values, `job_content` action lists, and per-search `work_mode` preferences.
+- [`location.example.yaml`](claude-code-plugin/config/location.example.yaml) contains the preferred location and search radius.
 
 Copy the examples to the selected user directory and replace the fictional values with personal values. The job-search skills read these files when using predefined searches or saved preferences; explicit search details from the current request take precedence. If a personal file is missing, the skills use the user's stated search details and ask only for necessary missing information. Do not commit personal configuration files or add personal data to the examples.
