@@ -7,13 +7,14 @@ Claude Code plugin (`robohobo`) that searches job advertisements and returns a r
 - `CLAUDE.md` - repository development instructions; not part of the installed plugin.
 - `claude-code-plugin/` - the self-contained Claude Code plugin root.
 - `claude-code-plugin/.claude-plugin/plugin.json` - plugin manifest, including the `user_dir` `userConfig` option (default `~/robohobo`).
-- `claude-code-plugin/.mcp.json` - Playwright MCP server used for browsing (`--isolated`, system Chromium path). The browser path is machine-specific.
+- `claude-code-plugin/.mcp.json` - generic Playwright MCP retained for future/unrelated use (`--isolated`, system Chromium path). The browser path is machine-specific.
+- `claude-code-plugin/tools/olx-search/` - local Node.js 20+ Playwright script called by the OLX skill; dependencies are pinned in `package-lock.json`, and offline tests run with `npm test` from this directory.
 - `claude-code-plugin/skills/browse-jobs/SKILL.md` - source-independent rules: configuration, workflow, result format, guardrails, and the table of sources.
 - `claude-code-plugin/skills/browse-jobs/olx-search.md` - OLX.pl-only browsing steps.
 - `claude-code-plugin/config/*.example.yaml` - fictional examples of the personal `searches.yaml` and `location.yaml`.
 - `apps/web/` and `database/schema/` - reserved placeholders for possible future work; no frontend or schema is implemented yet.
 
-There is no build system and no test suite. The skills are prompt text, so changes can only be checked by reading them and by running the skill. Validate the plugin from the repository root with `claude plugin validate ./claude-code-plugin`.
+There is no frontend build system. The OLX retrieval helper has an offline Node.js test suite; run it from `claude-code-plugin/tools/olx-search/` with `npm ci` (first install) and `npm test`. The skills remain prompt text, so changes should also be checked by reading them and by running the skill. Validate the plugin from the repository root with `claude plugin validate ./claude-code-plugin`. Do not run live OLX searches until the retrieval method has been verified as permitted.
 
 For consumer-style testing, start Claude Code with its working directory outside this repository and load the plugin explicitly, for example:
 
