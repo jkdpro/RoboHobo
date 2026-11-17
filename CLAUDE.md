@@ -14,7 +14,7 @@ Claude Code plugin (`robohobo`) that searches job advertisements and returns a r
 - `claude-code-plugin/config/*.example.yaml` - fictional examples of the personal `searches.yaml` and `location.yaml`.
 - `apps/web/` and `database/schema/` - reserved placeholders for possible future work; no frontend or schema is implemented yet.
 
-There is no frontend build system. The OLX retrieval helper has an offline Node.js test suite; run it from `claude-code-plugin/tools/olx-search/` with `npm ci` (first install) and `npm test`. The skills remain prompt text, so changes should also be checked by reading them and by running the skill. Validate the plugin from the repository root with `claude plugin validate ./claude-code-plugin`. Do not run live OLX searches until the retrieval method has been verified as permitted.
+There is no frontend build system. The OLX retrieval helper has an offline Node.js test suite; run it from `claude-code-plugin/tools/olx-search/` with `npm ci` (first install) and `npm test`. The skills remain prompt text, so changes should also be checked by reading them and by running the skill. Validate the plugin from the repository root with `claude plugin validate ./claude-code-plugin`. Ask before online connectivity tests.
 
 For consumer-style testing, start Claude Code with its working directory outside this repository and load the plugin explicitly, for example:
 
