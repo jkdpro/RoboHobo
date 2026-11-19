@@ -1,0 +1,24 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug OLX search (stdin)",
+      "program": "${workspaceFolder}/claude-code-plugin/tools/olx-search/olx-search.js",
+      "cwd": "${workspaceFolder}/claude-code-plugin/tools/olx-search",
+      "console": "integratedTerminal",
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug offline tests",
+      "program": "${workspaceFolder}/claude-code-plugin/tools/olx-search/test/olx-search.test.js",
+      "runtimeArgs": ["--test"],
+      "cwd": "${workspaceFolder}/claude-code-plugin/tools/olx-search",
+      "console": "integratedTerminal",
+      "skipFiles": ["<node_internals>/**"]
+    }
+  ]
+}
