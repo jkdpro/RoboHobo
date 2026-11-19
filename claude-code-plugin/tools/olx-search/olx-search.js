@@ -477,7 +477,7 @@ export async function executeSearch(request, { browserType = chromium } = {}) {
   const maxCards = Math.min(requestedCardCap, MAX_CARDS);
   const applied = [];
   const deadline = Date.now() + MAX_RUNTIME_MS;
-  const launchOptions = { headless: true };
+  const launchOptions = { headless: false };
   if (process.env.ROBOHOBO_CHROMIUM_PATH) launchOptions.executablePath = process.env.ROBOHOBO_CHROMIUM_PATH;
   const browser = await browserType.launch(launchOptions);
   let context;
