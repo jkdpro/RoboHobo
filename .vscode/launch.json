@@ -19,6 +19,16 @@
       "cwd": "${workspaceFolder}/claude-code-plugin/tools/olx-search",
       "console": "integratedTerminal",
       "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug OLX search (request file)",
+      "program": "${workspaceFolder}/claude-code-plugin/tools/olx-search/olx-search.js",
+      "args": ["--input", "${workspaceFolder}/claude-code-plugin/tools/olx-search/request.example.json"],
+      "cwd": "${workspaceFolder}/claude-code-plugin/tools/olx-search",
+      "console": "integratedTerminal",
+      "skipFiles": ["<node_internals>/**"]
     }
   ]
 }

@@ -1,3 +1,4 @@
+import { createReadStream } from 'node:fs';
 import { pathToFileURL } from 'node:url';
 import { resolve } from 'node:path';
 import { chromium } from 'playwright';
@@ -550,24 +551,39 @@ export async function executeSearch(request, { browserType = chromium } = {}) {
 
 export { MAX_RUNTIME_MS };
 
-async function readRequest() {
-  const chunks = [];
-  let bytes = 0;
-  for await (const chunk of process.stdin) {
-    bytes += chunk.length;
-    if (bytes > MAX_INPUT_BYTES) throw new SearchError('invalid_request', 'Request exceeds the size limit.');
-    chunks.push(chunk);
-  }
+function parseRequestJson(buffer) {
   try {
-    return JSON.parse(Buffer.concat(chunks).toString('utf8'));
+    return JSON.parse(buffer.toString('utf8'));
   } catch {
     throw new SearchError('invalid_request', 'Input must be valid JSON.');
   }
 }
 
+export async function readRequest(inputFile) {
+  const chunks = [];
+  let bytes = 0;
+  const input = inputFile ? createReadStream(inputFile) : process.stdin;
+  for await (const chunk of input) {
+    bytes += chunk.length;
+    if (bytes > MAX_INPUT_BYTES) {
+      input.destroy?.();
+      throw new SearchError('invalid_request', 'Request exceeds the size limit.');
+    }
+    chunks.push(chunk);
+  }
+  return parseRequestJson(Buffer.concat(chunks));
+}
+
+function inputFileFromArgs(args) {
+  if (args.length === 0) return null;
+  if (args.length === 2 && args[0] === '--input') return args[1];
+  throw new SearchError('invalid_request', 'Usage: node olx-search.js [--input <file>].');
+}
+
 async function main() {
   try {
-    const output = await executeSearch(await readRequest());
+    const inputFile = inputFileFromArgs(process.argv.slice(2));
+    const output = await executeSearch(await readRequest(inputFile));
     process.stdout.write(`${JSON.stringify(output)}\n`);
   } catch (error) {
     const code = error instanceof SearchError ? error.code : error?.name === 'TimeoutError' ? 'timeout' : 'tool_error';

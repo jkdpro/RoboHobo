@@ -1,0 +1,5 @@
+{
+  "job_category": "IT",
+  "employment_type": { "require": ["full_time"] },
+  "result_cap": 3
+}

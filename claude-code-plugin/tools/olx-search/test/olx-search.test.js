@@ -1,11 +1,15 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { mkdtemp, rm, writeFile } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import {
   MAX_CARDS,
   MAX_RESULT_CAP,
   SearchError,
   compactText,
   parseCardFields,
+  readRequest,
   safeJobUrl,
   safeOlxUrl,
   validateRequest,
@@ -26,6 +30,18 @@ const mixedModeListing = {
     '06 listopada 2026',
   ],
 };
+
+test('reads a JSON request from a file without contacting OLX', async () => {
+  const directory = await mkdtemp(join(tmpdir(), 'olx-search-test-'));
+  const requestPath = join(directory, 'request.json');
+  const request = { job_category: 'IT', employment_type: { require: ['full_time'] }, result_cap: 3 };
+  try {
+    await writeFile(requestPath, JSON.stringify(request));
+    assert.deepEqual(await readRequest(requestPath), request);
+  } finally {
+    await rm(directory, { recursive: true, force: true });
+  }
+});
 
 test('validates resolved portal filters and location inputs', () => {
   const request = validateRequest({
